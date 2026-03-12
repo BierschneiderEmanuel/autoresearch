@@ -3,6 +3,7 @@
 <img width="871" height="441" alt="autoresearch" src="https://github.com/user-attachments/assets/63d28977-34e0-4cc1-9d9d-10b05425f2cd" />
 
 ## Results after half a day of training
+```
 Baseline val_bpb:  1.978096
 Best val_bpb:      1.089244
 Total improvement: 0.888852 (44.93%)
@@ -33,7 +34,7 @@ Cumulative effort per improvement:
   Experiment # 73: bpb=1.089332  Adam beta1 0.75->0.7 (even more aggressive momentum)
   Experiment # 80: bpb=1.089259  WARMDOWN_RATIO 0.5->0.55 (slightly longer warmdown)
   Experiment # 84: bpb=1.089244  RoPE base 50000->60000
-  
+```
 ## How it works
 
 The repo is deliberately kept small and only really has three files that matter:
