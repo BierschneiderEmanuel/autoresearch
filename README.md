@@ -2,6 +2,38 @@
 
 <img width="871" height="441" alt="autoresearch" src="https://github.com/user-attachments/assets/63d28977-34e0-4cc1-9d9d-10b05425f2cd" />
 
+## Results after half a day of training
+Baseline val_bpb:  1.978096
+Best val_bpb:      1.089244
+Total improvement: 0.888852 (44.93%)
+Best experiment:   RoPE base 50000->60000
+
+Cumulative effort per improvement:
+  Experiment #  0: bpb=1.978096  baseline
+  Experiment #  1: bpb=1.114434  reduce batch size 2^19->2^16, device 128->32 for more optimizer steps
+  Experiment #  9: bpb=1.114312  reduce MATRIX_LR 0.04->0.02
+  Experiment # 15: bpb=1.110488  RoPE base 10000->50000
+  Experiment # 26: bpb=1.109812  S-layer window 1024->512 (long_window//4) for faster attention, more steps
+  Experiment # 27: bpb=1.105889  S-layer window 512->256 (long_window//8) even more steps (1140)
+  Experiment # 28: bpb=1.104112  S-layer window 256->128 (long_window//16) 1159 steps
+  Experiment # 29: bpb=1.103181  S-layer window 128->64 (long_window//32) 1170 steps
+  Experiment # 31: bpb=1.100676  WINDOW_PATTERN SSSL->SSSSL (L at pos 4,7 vs 3,7) 1176 steps
+  Experiment # 33: bpb=1.099409  S-window 64->32 with SSSSL pattern (long_window//64) 1173 steps
+  Experiment # 35: bpb=1.098821  DEPTH 8->7 (same dim=512, 47.2M params, 1304 steps)
+  Experiment # 38: bpb=1.098446  S-window 48 (between 32 and 64) with DEPTH=7 SSSSL
+  Experiment # 40: bpb=1.094826  WINDOW_PATTERN SSSSL->SSSL with DEPTH=7 S=48 (L at pos 3,6 vs 4,6) 1301 steps
+  Experiment # 44: bpb=1.094283  logit softcap 15->12
+  Experiment # 48: bpb=1.092723  MLP hidden 4x->2x (1024 hidden, 39.8M params, 1634 steps)
+  Experiment # 52: bpb=1.091977  S-window 32 with 2x MLP DEPTH=7 SSSL softcap=12 (1639 steps)
+  Experiment # 55: bpb=1.091906  SCALAR_LR 0.5->0.1 (slower residual scalar learning)
+  Experiment # 58: bpb=1.091643  SSML pattern: 2xS=32 + M=256 + L=2048 (1629 steps)
+  Experiment # 63: bpb=1.091288  EMBEDDING_LR 0.6->0.8
+  Experiment # 66: bpb=1.090030  WINDOW_PATTERN SSML->SSMM (1L instead of 2L, 4S+2M+1L, 1674 steps)
+  Experiment # 72: bpb=1.089408  Adam beta1 0.8->0.75 (more aggressive momentum)
+  Experiment # 73: bpb=1.089332  Adam beta1 0.75->0.7 (even more aggressive momentum)
+  Experiment # 80: bpb=1.089259  WARMDOWN_RATIO 0.5->0.55 (slightly longer warmdown)
+  Experiment # 84: bpb=1.089244  RoPE base 50000->60000
+  
 ## How it works
 
 The repo is deliberately kept small and only really has three files that matter:
