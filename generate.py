@@ -217,7 +217,7 @@ if __name__ == "__main__":
     # weights saved from torch.compile'd model have "_orig_mod." prefix — strip it
     state_dict = {k.removeprefix("_orig_mod."): v for k, v in state_dict.items()}
     model.load_state_dict(state_dict)
-    model = torch.compile(model, dynamic=False)
+    model = model.to(torch.bfloat16)  # ensure uniform dtype
     prompt = "Hello, world!"
     output = generate_text(model, tokenizer, prompt, max_new_tokens=32)
     print("Prompt:", prompt)
