@@ -50,7 +50,7 @@ if __name__ == "__main__":
     state_dict = {k.removeprefix("_orig_mod."): v for k, v in state_dict.items()}
     model.load_state_dict(state_dict)
     model = model.to(torch.bfloat16)  # ensure uniform dtype
-    prompt = "tell me a story"
+    prompt = "what is 1 + 1?"
     output = generate_text(model, tokenizer, prompt, max_new_tokens=32)
     print("Prompt:", prompt)
     print("Generated:", output)
